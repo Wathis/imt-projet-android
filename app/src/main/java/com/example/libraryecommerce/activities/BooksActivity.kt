@@ -4,15 +4,18 @@ package com.example.libraryecommerce.activities
 import BooksAdapter
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.libraryecommerce.R
 import com.example.libraryecommerce.model.Book
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+
 
 class BooksActivity : AppCompatActivity() {
     lateinit var booksAdapter : BooksAdapter;
@@ -38,11 +41,33 @@ class BooksActivity : AppCompatActivity() {
         recyclerView.setLayoutManager(LinearLayoutManager(this));
         floatingButton.setOnClickListener {
             var intent = Intent(this.baseContext, BasketActivity::class.java)
-            intent.putParcelableArrayListExtra(BasketActivity.bookExtra, this.books)
-            startActivity(intent)
+            intent.putParcelableArrayListExtra(BasketActivity.bookExtra, ArrayList(this.books.filter { book -> book.quantity > 0 }))
+            startActivityForResult(intent, BasketActivity.REQUEST_CODE_BASKET)
         }
 
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (BasketActivity.REQUEST_CODE_BASKET == requestCode) {
+            if (resultCode == BasketActivity.PANIER_VIDE) {
+                viderPanier();
+                Toast.makeText(this, "Votre panier est maintenant vide", Toast.LENGTH_SHORT).show()
+            }
+            if (resultCode ==  BasketActivity.FINALISER) {
+                viderPanier();
+                Toast.makeText(this, "Commande réalisée", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    fun viderPanier() {
+        this.books.forEach {
+            it.quantity = 0
+        }
+    }
+
+
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         toolBar.title = "Nos livres"

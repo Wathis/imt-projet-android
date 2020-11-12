@@ -3,8 +3,10 @@ import android.content.res.Resources
 import android.icu.number.NumberFormatter.with
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.libraryecommerce.R
 import com.example.libraryecommerce.inflate
@@ -35,6 +37,7 @@ class BooksAdapter(private val books: ArrayList<Book>) :
         var description: TextView? = null
         var price: TextView? = null
         var imageView: ImageView? = null
+        var buttonAdd: Button? = null
         var book: Book? = null
         init {
             title = itemView.findViewById(R.id.bookTitle)
@@ -42,6 +45,11 @@ class BooksAdapter(private val books: ArrayList<Book>) :
             price = itemView.findViewById(R.id.bookPrice)
             imageView = itemView.findViewById(R.id.bookImage)
             itemView.setOnClickListener(this)
+            buttonAdd = itemView.findViewById(R.id.ajouter)
+            buttonAdd?.setOnClickListener {
+                Toast.makeText(itemView.context, "Livre ajouté", Toast.LENGTH_SHORT).show()
+                book?.quantity = (book?.quantity?: 0) + 1
+            }
         }
 
         override fun onClick(p0: View?) {

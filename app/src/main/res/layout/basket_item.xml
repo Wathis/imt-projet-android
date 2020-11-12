@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/lessQuantity"
         android:layout_width="44dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
@@ -16,12 +16,12 @@
         android:text="@string/less"
         app:backgroundTint="#434343"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/quantity"
         app:layout_constraintTop_toBottomOf="@+id/bookDescription"
         tools:text="@string/less" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
@@ -30,11 +30,11 @@
         android:layout_marginBottom="28dp"
         android:text="0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button6"
+        app:layout_constraintEnd_toStartOf="@+id/moreQuantity"
         app:layout_constraintTop_toBottomOf="@+id/bookDescription" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/moreQuantity"
         android:layout_width="50dp"
         android:layout_height="49dp"
         android:layout_marginTop="8dp"
