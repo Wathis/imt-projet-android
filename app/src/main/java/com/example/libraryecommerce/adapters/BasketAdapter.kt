@@ -52,7 +52,7 @@ class BasketAdapter(private val booksInBasket: ArrayList<Book>) :
                 this.bindBook(book)
             }
             minusButton?.setOnClickListener {
-                if (book.quantity >= 0) {
+                if (book.quantity > 0) {
                     book?.quantity = (book?.quantity?: 0) - 1
                     this.bindBook(book)
                 }
