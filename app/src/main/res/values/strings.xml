@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">LibraryECommerce</string>
+    <string name="action_settings">Settings</string>
+    <string name="available_books">Nos livres disponibles</string>
+    <string name="price">%1$.2f €</string>
+    <string name="add">Ajouter</string>
+    <string name="plus">+</string>
+    <string name="less">-</string>
+    <string name="delete">Supprimer</string>
+    <string name="shop">Panier</string>
+    <string name="your_basket">Votre panier</string>
+    <string name="buy">Finaliser</string>
+    <string name="empty">Vider</string>
+
+</resources>
