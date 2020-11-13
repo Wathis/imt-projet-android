@@ -12,13 +12,13 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.libraryecommerce.R
+import com.libraryecommerce.db.BasketDB
 import com.libraryecommerce.db.BooksDB
 import com.libraryecommerce.model.Book
 
 class BasketActivity : AppCompatActivity() {
     lateinit var basketAdapter : BasketAdapter;
 
-    lateinit var filteredBooks: ArrayList<Book?>
     var finalPrice: Float = 0.0f
 
     lateinit var recyclerView: RecyclerView
@@ -28,8 +28,7 @@ class BasketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.basket_activity)
-        filteredBooks = ArrayList(BooksDB.books.filter { book -> (book?.quantity?:0) > 0 })
-        basketAdapter = BasketAdapter(filteredBooks);
+        basketAdapter = BasketAdapter(ArrayList(BooksDB.books.filter { book -> BasketDB.basket.containsKey(book?.isbn) }));
 
         basketAdapter.setModifyQuantityListener(object: BasketAdapter.OnModifyQuantityListener{
             override fun onDataChanged() {
@@ -57,25 +56,15 @@ class BasketActivity : AppCompatActivity() {
     }
 
     private fun viderPanier() {
-        BooksDB.books.forEach {
-            it?.quantity = 0
-        }
+        BasketDB.basket = mutableMapOf()
     }
 
     private fun updateFinalPrice() {
-        var price: Float = 0F
-        for(book in filteredBooks) {
-            price += book?.price?.times(book.quantity) ?: 0f
-        }
-        findViewById<TextView>(R.id.finalPrice).text = getString(R.string.price, price)
+        findViewById<TextView>(R.id.finalPrice).text = getString(R.string.price, BasketDB.shared.computeTotal())
     }
 
     private fun updateFinalPriceWithPromo() {
-        var price: Float = 0F
-        for(book in filteredBooks) {
-            price += book?.price?.times(book.quantity) ?: 0f
-        }
-        findViewById<TextView>(R.id.finalPrice).text = getString(R.string.price, price)
+        findViewById<TextView>(R.id.finalPrice).text = getString(R.string.price, BasketDB.shared.computeTotal())
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

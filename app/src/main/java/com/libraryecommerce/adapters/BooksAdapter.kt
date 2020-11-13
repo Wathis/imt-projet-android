@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.libraryecommerce.R
 import com.libraryecommerce.activities.BasketActivity
 import com.libraryecommerce.activities.BookDetailsActivity
+import com.libraryecommerce.db.BasketDB
 import com.libraryecommerce.inflate
 import com.libraryecommerce.model.Book
 import com.squareup.picasso.Picasso
@@ -54,8 +55,12 @@ class BooksAdapter(private var books: ArrayList<Book?>) :
             itemView.setOnClickListener(this)
             buttonAdd = itemView.findViewById(R.id.ajouter)
             buttonAdd?.setOnClickListener {
-                Toast.makeText(itemView.context, "Livre ajouté", Toast.LENGTH_SHORT).show()
-                book?.quantity = (book?.quantity?: 0) + 1
+                if(book!=null){
+                    BasketDB.shared.addToBasket(book!!)
+                    Toast.makeText(itemView.context, "Livre ajouté", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(itemView.context, "Livre non trouvé", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

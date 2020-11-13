@@ -11,8 +11,6 @@ class Book(
     var synopsis : List<String>) :
     Parcelable {
 
-    var quantity = 0
-
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -21,7 +19,6 @@ class Book(
         arrayListOf()
     ) {
         parcel.readStringList(synopsis)
-        quantity = parcel.readInt()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -30,7 +27,6 @@ class Book(
         parcel.writeFloat(price)
         parcel.writeString(cover)
         parcel.writeStringList(synopsis)
-        parcel.writeInt(quantity)
     }
 
     override fun describeContents(): Int {

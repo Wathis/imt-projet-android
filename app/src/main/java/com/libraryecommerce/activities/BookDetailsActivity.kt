@@ -19,6 +19,7 @@ import com.libraryecommerce.R
 import com.libraryecommerce.model.Book
 import com.libraryecommerce.service.HenriPotierXebiaService
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.libraryecommerce.db.BasketDB
 import com.libraryecommerce.db.BooksDB
 import com.squareup.picasso.Picasso
 import retrofit2.Call
@@ -68,8 +69,12 @@ class BookDetailsActivity : AppCompatActivity() {
             startActivity(intent)
         }
         ajouter?.setOnClickListener {
-            Toast.makeText(this, "Livre ajouté", Toast.LENGTH_SHORT).show()
-            book?.quantity = (book?.quantity?: 0) + 1
+            if(book!=null){
+                BasketDB.shared.addToBasket(book!!)
+                Toast.makeText(it.context, "Livre ajouté", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(it.context, "Livre non trouvé", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

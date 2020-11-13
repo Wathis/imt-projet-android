@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.libraryecommerce.R
+import com.libraryecommerce.db.BasketDB
 import com.libraryecommerce.inflate
 import com.libraryecommerce.model.Book
 import com.squareup.picasso.Picasso
@@ -55,16 +56,14 @@ class BasketAdapter(private val booksInBasket: ArrayList<Book?>) :
             minusButton = itemView.findViewById(R.id.lessQuantity)
             itemView.setOnClickListener(this)
             plusButton?.setOnClickListener {
-                book?.quantity = (book?.quantity?: 0) + 1
+                BasketDB.shared.addToBasket(book)
                 this.bindBook(book)
                 callbackUpdatePanier?.onDataChanged()
             }
             minusButton?.setOnClickListener {
-                if ((book?.quantity ?: 0) > 0) {
-                    book?.quantity = (book?.quantity?: 0) - 1
+                    BasketDB.shared.removeOneFromBasket(book)
                     this.bindBook(book)
                     callbackUpdatePanier?.onDataChanged()
-                }
             }
         }
 
@@ -77,7 +76,7 @@ class BasketAdapter(private val booksInBasket: ArrayList<Book?>) :
             title?.text = book?.title
             Picasso.get().load(book?.cover).into(imageView)
             price?.text = price?.resources?.getString(R.string.price, book?.price)
-            quantity?.text = this.book?.quantity.toString()
+            quantity?.text = BasketDB.basket.get(book?.isbn).toString()
         }
     }
 
