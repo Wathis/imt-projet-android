@@ -33,7 +33,7 @@ class BasketAdapter(private val booksInBasket: ArrayList<Book?>) :
         fun onDataChanged()
     }
 
-    fun setOnDataChangeListener(modifyQuantityListener: OnModifyQuantityListener) {
+    fun setModifyQuantityListener(modifyQuantityListener: OnModifyQuantityListener) {
         onModifyQuantityListener = modifyQuantityListener
     }
 

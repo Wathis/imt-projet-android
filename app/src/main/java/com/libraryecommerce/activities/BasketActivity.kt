@@ -31,12 +31,12 @@ class BasketActivity : AppCompatActivity() {
         filteredBooks = ArrayList(BooksDB.books.filter { book -> (book?.quantity?:0) > 0 })
         basketAdapter = BasketAdapter(filteredBooks);
 
-        basketAdapter.setOnDataChangeListener(object: BasketAdapter.OnModifyQuantityListener{
+        basketAdapter.setModifyQuantityListener(object: BasketAdapter.OnModifyQuantityListener{
             override fun onDataChanged() {
                 updateFinalPrice()
             }
         })
-        
+
         recyclerView = findViewById<RecyclerView>(R.id.basket)
         finaliser = findViewById(R.id.finaliser)
         vider = findViewById(R.id.vider)
