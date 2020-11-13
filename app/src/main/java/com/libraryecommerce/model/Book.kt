@@ -1,24 +1,35 @@
-package com.example.libraryecommerce.model
+package com.libraryecommerce.model
 
 import android.os.Parcel
 import android.os.Parcelable
 
-class Book(var name: String?, var description: String?, var imageUrl: String?, var price: Float, var quantity: Int) :
+class Book(
+    val isbn : String?,
+    val title : String?,
+    val price : Float,
+    val cover : String?,
+    var synopsis : List<String>) :
     Parcelable {
+
+    var quantity = 0
+
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
         parcel.readFloat(),
-        parcel.readInt()
+        parcel.readString(),
+        arrayListOf()
     ) {
+        parcel.readStringList(synopsis)
+        quantity = parcel.readInt()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(name)
-        parcel.writeString(description)
-        parcel.writeString(imageUrl)
+        parcel.writeString(isbn)
+        parcel.writeString(title)
         parcel.writeFloat(price)
+        parcel.writeString(cover)
+        parcel.writeStringList(synopsis)
         parcel.writeInt(quantity)
     }
 

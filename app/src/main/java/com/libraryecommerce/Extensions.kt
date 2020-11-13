@@ -1,4 +1,4 @@
-package com.example.libraryecommerce
+package com.libraryecommerce
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,19 +1,17 @@
 
-import android.content.res.Resources
-import android.icu.number.NumberFormatter.with
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.libraryecommerce.R
-import com.example.libraryecommerce.inflate
-import com.example.libraryecommerce.model.Book
+import com.libraryecommerce.R
+import com.libraryecommerce.inflate
+import com.libraryecommerce.model.Book
 import com.squareup.picasso.Picasso
 
 
-class BasketAdapter(private val booksInBasket: ArrayList<Book>) :
+class BasketAdapter(private val booksInBasket: ArrayList<Book?>) :
     RecyclerView.Adapter<BasketAdapter.BasketHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BasketAdapter.BasketHolder {
@@ -38,7 +36,7 @@ class BasketAdapter(private val booksInBasket: ArrayList<Book>) :
         var imageView: ImageView? = null
         var plusButton: Button? = null
         var minusButton: Button? = null
-        lateinit var book: Book
+        var book: Book? = null
         init {
             title = itemView.findViewById(R.id.bookTitle)
             price = itemView.findViewById(R.id.bookPrice)
@@ -52,7 +50,7 @@ class BasketAdapter(private val booksInBasket: ArrayList<Book>) :
                 this.bindBook(book)
             }
             minusButton?.setOnClickListener {
-                if (book.quantity > 0) {
+                if ((book?.quantity ?: 0) > 0) {
                     book?.quantity = (book?.quantity?: 0) - 1
                     this.bindBook(book)
                 }
@@ -63,11 +61,11 @@ class BasketAdapter(private val booksInBasket: ArrayList<Book>) :
 
         }
 
-        fun bindBook(book: Book) {
+        fun bindBook(book: Book?) {
             this.book = book
-            title?.text = book.name
-            Picasso.get().load(book.imageUrl).into(imageView)
-            price?.text = price?.resources?.getString(R.string.price, book.price)
+            title?.text = book?.title
+            Picasso.get().load(book?.cover).into(imageView)
+            price?.text = price?.resources?.getString(R.string.price, book?.price)
             quantity?.text = this.book?.quantity.toString()
         }
     }

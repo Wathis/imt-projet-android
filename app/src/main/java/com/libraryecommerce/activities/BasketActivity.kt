@@ -1,5 +1,5 @@
 
-package com.example.libraryecommerce.activities
+package com.libraryecommerce.activities
 
 import BasketAdapter
 import android.os.Bundle
@@ -7,11 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.libraryecommerce.R
-import com.example.libraryecommerce.model.Book
+import com.libraryecommerce.R
+import com.libraryecommerce.model.Book
 
 class BasketActivity : AppCompatActivity() {
     lateinit var basketAdapter : BasketAdapter;
@@ -23,7 +22,7 @@ class BasketActivity : AppCompatActivity() {
         var FINALISER = 101
     }
 
-    lateinit var books: ArrayList<Book>
+    lateinit var books: ArrayList<Book?>
     lateinit var recyclerView: RecyclerView
     lateinit var finaliser: Button
     lateinit var vider: Button
@@ -31,7 +30,7 @@ class BasketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.basket_activity)
-        books = intent.getParcelableArrayListExtra<Book>(bookExtra)?: arrayListOf()
+        books = intent.getParcelableArrayListExtra<Book?>(bookExtra)?: arrayListOf()
         basketAdapter = BasketAdapter(books);
         recyclerView = findViewById<RecyclerView>(R.id.basket)
         finaliser = findViewById(R.id.finaliser)

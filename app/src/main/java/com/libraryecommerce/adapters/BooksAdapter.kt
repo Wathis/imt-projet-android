@@ -1,6 +1,4 @@
 
-import android.content.res.Resources
-import android.icu.number.NumberFormatter.with
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -8,18 +6,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.libraryecommerce.R
-import com.example.libraryecommerce.inflate
-import com.example.libraryecommerce.model.Book
+import com.libraryecommerce.R
+import com.libraryecommerce.inflate
+import com.libraryecommerce.model.Book
 import com.squareup.picasso.Picasso
 
 
-class BooksAdapter(private val books: ArrayList<Book>) :
+class BooksAdapter(private var books: ArrayList<Book?>) :
     RecyclerView.Adapter<BooksAdapter.BookHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BooksAdapter.BookHolder {
         val inflatedView = parent.inflate(R.layout.books_item, false)
         return BookHolder(inflatedView)
+    }
+
+    fun refreshBooks(newBooks : ArrayList<Book?>) {
+        books = newBooks;
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
@@ -56,12 +59,12 @@ class BooksAdapter(private val books: ArrayList<Book>) :
 
         }
 
-        fun bindBook(book: Book) {
+        fun bindBook(book: Book?) {
             this.book = book
-            title?.text = book.name
-            description?.text = book.description
-            Picasso.get().load(book.imageUrl).into(imageView)
-            price?.text = price?.resources?.getString(R.string.price, book.price)
+            title?.text = book?.title
+            description?.text = book?.synopsis?.first()
+            Picasso.get().load(book?.cover).into(imageView)
+            price?.text = price?.resources?.getString(R.string.price, book?.price)
         }
     }
 
