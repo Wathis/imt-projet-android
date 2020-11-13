@@ -48,7 +48,10 @@ class BasketDB {
             }
 
             override fun onResponse(call: Call<Offers?>, response: Response<Offers?>) {
-                if (response?.body() != null) {
+                if (response.code() != 200) {
+                    callback(0f)
+                }
+                else if (response?.body() != null) {
                     price = getBestOffer(computeTotal(), response.body()!!.offers)
                     callback(price)
                 }
