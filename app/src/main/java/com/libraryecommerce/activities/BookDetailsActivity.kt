@@ -44,7 +44,6 @@ class BookDetailsActivity : AppCompatActivity() {
     lateinit var imageView: ImageView
 
     lateinit var ajouter: Button
-    lateinit var retour: Button
 
     lateinit var toolBar: Toolbar
     lateinit var floatingButton : FloatingActionButton
@@ -53,7 +52,8 @@ class BookDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.book_details_activity)
         book = intent.getParcelableExtra<Book?>(BookDetailsActivity.bookExtra)?: null
-
+        toolBar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolBar)
         title = findViewById(R.id.bookTitle)
         synopsis = findViewById(R.id.bookSynopsis)
         price = findViewById(R.id.bookPrice)
@@ -62,12 +62,7 @@ class BookDetailsActivity : AppCompatActivity() {
         initValues()
 
         ajouter = findViewById(R.id.ajouter)
-        retour = findViewById(R.id.retour)
         floatingButton = findViewById(R.id.basketButton)
-        retour.setOnClickListener {
-            setResult(BookDetailsActivity.RETOUR)
-            finish()
-        }
         floatingButton.setOnClickListener {
             var intent = Intent(this.baseContext, BasketActivity::class.java)
             startActivity(intent)
@@ -81,7 +76,7 @@ class BookDetailsActivity : AppCompatActivity() {
     fun initValues(){
         title.text = book?.title
         synopsis.text = book?.synopsis?.joinToString("\n\n")
-        price.text = book?.price.toString()
+        price.text = price?.resources?.getString(R.string.price, book?.price)
         Picasso.get().load(book?.cover).into(imageView)
     }
 
