@@ -1,12 +1,16 @@
 
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.libraryecommerce.R
+import com.libraryecommerce.activities.BasketActivity
+import com.libraryecommerce.activities.BookDetailsActivity
 import com.libraryecommerce.inflate
 import com.libraryecommerce.model.Book
 import com.squareup.picasso.Picasso
@@ -56,7 +60,9 @@ class BooksAdapter(private var books: ArrayList<Book?>) :
         }
 
         override fun onClick(p0: View?) {
-
+            var intent = Intent(p0?.context, BookDetailsActivity::class.java)
+            intent.putExtra(BookDetailsActivity.bookExtra, book)
+            p0?.context?.let { startActivity(it, intent, null) }
         }
 
         fun bindBook(book: Book?) {

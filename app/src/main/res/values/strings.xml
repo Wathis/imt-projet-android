@@ -4,6 +4,7 @@
     <string name="available_books">Nos livres disponibles</string>
     <string name="price">%1$.2f €</string>
     <string name="add">Ajouter</string>
+    <string name="back">Retour</string>
     <string name="plus">+</string>
     <string name="less">-</string>
     <string name="delete">Supprimer</string>

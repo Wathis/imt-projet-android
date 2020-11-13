@@ -24,6 +24,10 @@
             android:name=".activities.BasketActivity"
             android:theme="@style/Theme.LibraryECommerce.NoActionBar">
         </activity>
+        <activity
+            android:name=".activities.BookDetailsActivity"
+            android:theme="@style/Theme.LibraryECommerce.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

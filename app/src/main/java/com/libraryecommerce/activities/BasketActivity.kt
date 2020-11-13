@@ -7,22 +7,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.libraryecommerce.R
+import com.libraryecommerce.db.BooksDB
 import com.libraryecommerce.model.Book
+import java.sql.Array
 
 class BasketActivity : AppCompatActivity() {
     lateinit var basketAdapter : BasketAdapter;
 
-    companion object {
-        var bookExtra = "BOOK_EXTRA"
-        var REQUEST_CODE_BASKET = 1
-        var PANIER_VIDE = 100
-        var FINALISER = 101
-    }
+    lateinit var filteredBooks: ArrayList<Book?>
 
-    lateinit var books: ArrayList<Book?>
     lateinit var recyclerView: RecyclerView
     lateinit var finaliser: Button
     lateinit var vider: Button
@@ -30,22 +27,31 @@ class BasketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.basket_activity)
-        books = intent.getParcelableArrayListExtra<Book?>(bookExtra)?: arrayListOf()
-        basketAdapter = BasketAdapter(books);
+        filteredBooks = ArrayList(BooksDB.books.filter { book -> (book?.quantity?:0) > 0 })
+        basketAdapter = BasketAdapter(filteredBooks);
         recyclerView = findViewById<RecyclerView>(R.id.basket)
         finaliser = findViewById(R.id.finaliser)
         vider = findViewById(R.id.vider)
         recyclerView.adapter = basketAdapter
         recyclerView.setLayoutManager(LinearLayoutManager(this))
         finaliser.setOnClickListener {
-            setResult(FINALISER)
+            viderPanier()
+            Toast.makeText(this, "Commande réalisée", Toast.LENGTH_SHORT).show()
             finish()
         }
         vider.setOnClickListener {
-            setResult(PANIER_VIDE)
+            viderPanier()
+            Toast.makeText(this, "Votre panier est maintenant vide", Toast.LENGTH_SHORT).show()
             finish()
         }
     }
+
+    fun viderPanier() {
+        BooksDB.books.forEach {
+            it?.quantity = 0
+        }
+    }
+
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
     }
