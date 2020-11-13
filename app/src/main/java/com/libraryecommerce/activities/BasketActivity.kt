@@ -28,7 +28,7 @@ class BasketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.basket_activity)
-        basketAdapter = BasketAdapter(ArrayList(BooksDB.books.filter { book -> BasketDB.basket.containsKey(book?.isbn) }));
+        basketAdapter = BasketAdapter(ArrayList(BooksDB.books.filter { book -> BasketDB.basket.containsKey(book?.isbn) && BasketDB.basket[book?.isbn]!! > 0 }));
 
         basketAdapter.setModifyQuantityListener(object: BasketAdapter.OnModifyQuantityListener{
             override fun onDataChanged() {
