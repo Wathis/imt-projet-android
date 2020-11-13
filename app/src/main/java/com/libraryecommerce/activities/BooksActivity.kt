@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.libraryecommerce.R
@@ -38,7 +39,7 @@ class BooksActivity : AppCompatActivity() {
         setSupportActionBar(toolBar)
         recyclerView = findViewById<RecyclerView>(R.id.books)
         recyclerView.adapter = booksAdapter
-        recyclerView.setLayoutManager(LinearLayoutManager(this));
+        recyclerView.setLayoutManager(GridLayoutManager(this, 2 ));
         floatingButton.setOnClickListener {
             var intent = Intent(this.baseContext, BasketActivity::class.java)
             startActivity(intent)

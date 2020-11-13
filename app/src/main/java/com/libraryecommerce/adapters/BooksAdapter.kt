@@ -21,7 +21,7 @@ class BooksAdapter(private var books: ArrayList<Book?>) :
     RecyclerView.Adapter<BooksAdapter.BookHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BooksAdapter.BookHolder {
-        val inflatedView = parent.inflate(R.layout.books_item, false)
+        val inflatedView = parent.inflate(R.layout.books_item_grid, false)
         return BookHolder(inflatedView)
     }
 
@@ -49,19 +49,19 @@ class BooksAdapter(private var books: ArrayList<Book?>) :
         var book: Book? = null
         init {
             title = itemView.findViewById(R.id.bookTitle)
-            description = itemView.findViewById(R.id.bookDescription)
-            price = itemView.findViewById(R.id.bookPrice)
+//            description = itemView.findViewById(R.id.bookDescription)
+//            price = itemView.findViewById(R.id.bookPrice)
             imageView = itemView.findViewById(R.id.bookImage)
             itemView.setOnClickListener(this)
-            buttonAdd = itemView.findViewById(R.id.ajouter)
-            buttonAdd?.setOnClickListener {
-                if(book!=null){
-                    BasketDB.shared.addToBasket(book!!)
-                    Toast.makeText(itemView.context, "Livre ajouté", Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(itemView.context, "Livre non trouvé", Toast.LENGTH_SHORT).show()
-                }
-            }
+//            buttonAdd = itemView.findViewById(R.id.ajouter)
+//            buttonAdd?.setOnClickListener {
+//                if(book!=null){
+//                    BasketDB.shared.addToBasket(book!!)
+//                    Toast.makeText(itemView.context, "Livre ajouté", Toast.LENGTH_SHORT).show()
+//                }else{
+//                    Toast.makeText(itemView.context, "Livre non trouvé", Toast.LENGTH_SHORT).show()
+//                }
+//            }
         }
 
         override fun onClick(p0: View?) {
@@ -73,9 +73,9 @@ class BooksAdapter(private var books: ArrayList<Book?>) :
         fun bindBook(book: Book?) {
             this.book = book
             title?.text = book?.title
-            description?.text = book?.synopsis?.first()
+//            description?.text = book?.synopsis?.first()
             Picasso.get().load(book?.cover).into(imageView)
-            price?.text = price?.resources?.getString(R.string.price, book?.price)
+//            price?.text = price?.resources?.getString(R.string.price, book?.price)
         }
     }
 
