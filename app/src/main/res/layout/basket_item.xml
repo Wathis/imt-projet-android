@@ -9,7 +9,6 @@
         android:id="@+id/lessQuantity"
         android:layout_width="44dp"
         android:layout_height="48dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
@@ -17,7 +16,8 @@
         app:backgroundTint="#434343"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/quantity"
-        app:layout_constraintTop_toBottomOf="@+id/bookDescription"
+        app:layout_constraintTop_toBottomOf="@+id/bookTitle"
+        app:layout_constraintVertical_bias="0.941"
         tools:text="@string/less" />
 
     <TextView
@@ -37,7 +37,6 @@
         android:id="@+id/moreQuantity"
         android:layout_width="50dp"
         android:layout_height="49dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
@@ -45,7 +44,8 @@
         app:backgroundTint="#434343"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bookDescription"
+        app:layout_constraintTop_toBottomOf="@+id/bookTitle"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="@string/plus" />
 
     <TextView

@@ -14,9 +14,11 @@ import com.squareup.picasso.Picasso
 class BasketAdapter(private val booksInBasket: ArrayList<Book?>) :
     RecyclerView.Adapter<BasketAdapter.BasketHolder>() {
 
+    private var onModifyQuantityListener: OnModifyQuantityListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BasketAdapter.BasketHolder {
         val inflatedView = parent.inflate(R.layout.basket_item, false)
-        return BasketHolder(inflatedView)
+        return BasketHolder(inflatedView, onModifyQuantityListener)
     }
 
     override fun getItemCount(): Int {
@@ -27,8 +29,15 @@ class BasketAdapter(private val booksInBasket: ArrayList<Book?>) :
         holder.bindBook(booksInBasket[position])
     }
 
+    interface OnModifyQuantityListener {
+        fun onDataChanged()
+    }
 
-    class BasketHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
+    fun setOnDataChangeListener(modifyQuantityListener: OnModifyQuantityListener) {
+        onModifyQuantityListener = modifyQuantityListener
+    }
+
+    class BasketHolder internal constructor(itemView: View, callbackUpdatePanier: OnModifyQuantityListener?) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         var title: TextView? = null
         var price: TextView? = null
@@ -48,11 +57,13 @@ class BasketAdapter(private val booksInBasket: ArrayList<Book?>) :
             plusButton?.setOnClickListener {
                 book?.quantity = (book?.quantity?: 0) + 1
                 this.bindBook(book)
+                callbackUpdatePanier?.onDataChanged()
             }
             minusButton?.setOnClickListener {
                 if ((book?.quantity ?: 0) > 0) {
                     book?.quantity = (book?.quantity?: 0) - 1
                     this.bindBook(book)
+                    callbackUpdatePanier?.onDataChanged()
                 }
             }
         }
