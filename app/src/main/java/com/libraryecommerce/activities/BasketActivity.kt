@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.libraryecommerce.R
 import com.libraryecommerce.db.BasketDB
 import com.libraryecommerce.db.BooksDB
-import com.libraryecommerce.model.Book
 
 class BasketActivity : AppCompatActivity() {
     lateinit var basketAdapter : BasketAdapter;
@@ -33,6 +32,7 @@ class BasketActivity : AppCompatActivity() {
         basketAdapter.setModifyQuantityListener(object: BasketAdapter.OnModifyQuantityListener{
             override fun onDataChanged() {
                 updateFinalPrice()
+                updateFinalPriceWithPromo()
             }
         })
 
@@ -41,6 +41,7 @@ class BasketActivity : AppCompatActivity() {
         vider = findViewById(R.id.vider)
 
         updateFinalPrice()
+        updateFinalPriceWithPromo()
         recyclerView.adapter = basketAdapter
         recyclerView.setLayoutManager(LinearLayoutManager(this))
         finaliser.setOnClickListener {
@@ -64,7 +65,9 @@ class BasketActivity : AppCompatActivity() {
     }
 
     private fun updateFinalPriceWithPromo() {
-        findViewById<TextView>(R.id.finalPrice).text = getString(R.string.price, BasketDB.shared.computeTotal())
+        BasketDB.shared.computeTotalWithPromo { price ->
+            findViewById<TextView>(R.id.finalPriceWithPromo).text = getString(R.string.price, price)
+        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

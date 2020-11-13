@@ -9,8 +9,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="103dp">
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -20,33 +20,33 @@
                 android:id="@+id/vider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
                 android:text="@string/empty"
                 app:backgroundTint="#F44336"
                 app:layout_constraintEnd_toStartOf="@+id/finaliser"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
             <Button
                 android:id="@+id/finaliser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
-                android:layout_marginTop="12dp"
                 android:text="@string/buy"
                 app:backgroundTint="#009688"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/finalPrice" />
+                app:layout_constraintTop_toBottomOf="@+id/finalPriceWithPromo" />
 
             <TextView
                 android:id="@+id/finalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
-                android:layout_marginTop="36dp"
                 android:text="@string/price"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/basket" />
@@ -55,11 +55,11 @@
                 android:id="@+id/textView"
                 android:layout_width="0dp"
                 android:layout_height="34dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/your_basket"
                 android:textSize="24sp"
@@ -73,9 +73,9 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="36dp"
+                android:layout_marginEnd="44dp"
+                android:layout_marginRight="44dp"
                 android:text="Prix sans réduction"
                 app:layout_constraintEnd_toStartOf="@+id/finalPrice"
                 app:layout_constraintTop_toBottomOf="@+id/basket" />
@@ -84,16 +84,38 @@
                 android:id="@+id/basket"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView">
 
             </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="44dp"
+                android:layout_marginRight="44dp"
+                android:text="Prix après réduction"
+                app:layout_constraintEnd_toStartOf="@+id/finalPriceWithPromo"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <TextView
+                android:id="@+id/finalPriceWithPromo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:text="@string/price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/finalPrice" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

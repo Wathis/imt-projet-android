@@ -24,6 +24,6 @@ interface HenriPotierXebiaService {
     @GET("books")
     fun listBooks(): Call<List<Book?>?>?
 
-    @GET("books/{isbn},{isbn2}/commercialOffers")
-    fun commercialOffers(@Path("isbn") isbn: String?, @Path("isbn2") isbn2: String?): Call<Offers?>?
+    @GET("books/{isbn}/commercialOffers")
+    fun commercialOffers(@Path("isbn") isbn: String?): Call<Offers?>?
 }
